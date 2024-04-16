@@ -129,7 +129,7 @@ class HBNBCommand(cmd.Cmd):
         if not args:
             print("** class name missing **")
             return
-        all_arg = args.split()
+        all_arg = args.split(' ')
         current_class = all_arg.pop(0)
         if current_class not in HBNBCommand.classes:
             print("** class doesn't exist **")
@@ -139,12 +139,12 @@ class HBNBCommand(cmd.Cmd):
         for a in all_arg:
             try:
 
-                k, v = a.split("=")
+                k, v = a.split('=')
                 k = k.strip()
                 v = v.strip()
                 if v.startswith('"') and v.endswith('"'):
                     v = v[1:-1].replace('\"', '"').replace("_", " ")
-                elif "." in v:
+                elif '.' in v:
                     v = float(v)
                 else:
                     v = int(v)

@@ -92,12 +92,12 @@ class TestConsole(unittest.TestCase):
             self.assertFalse(self.console.onecmd("create MyModel"))
             self.assertEqual(f.getvalue().strip(), "** class doesn't exist **")
 
-    # def test_create_valid_class(self):
-    #     """test_create_valid_class"""
-    #     with patch("sys.stdout", new=StringIO()) as f:
-    #         self.assertFalse(self.console.onecmd("create BaseModel"))
-    #         output = f.getvalue().strip()
-    #         self.assertTrue(len(output) > 0)
+    def test_create_valid_class(self):
+        """test_create_valid_class"""
+        with patch("sys.stdout", new=StringIO()) as f:
+            self.assertFalse(self.console.onecmd("create BaseModel"))
+            output = f.getvalue().strip()
+            self.assertTrue(len(output) > 0)
 
     def test_show_command(self):
         """test_show_command"""

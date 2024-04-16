@@ -7,6 +7,7 @@ class Review(BaseModel):
     """Review classto store review information"""
 
     def __init__(self, place_id, user_id, text, *args, **kwargs):
+        """init new Review"""
         super().__init__(**kwargs)
 
         self.place_id = place_id

@@ -141,7 +141,7 @@ class HBNBCommand(cmd.Cmd):
                 k = k.strip()
                 v = v.strip()
                 if v.startswith('"') and v.endswith('"'):
-                    v = v[1:-1].replace('"', '\\"').replace("_", " ")
+                    v = v[1:-1].replace('"', '\\"').replace('_', ' ')
                 elif "." in v:
                     v = float(v)
                 else:
@@ -149,7 +149,7 @@ class HBNBCommand(cmd.Cmd):
                 map_arg[k] = v
 
             except ValueError:
-                pass
+                continue
         new_instance = HBNBCommand.classes[current_class](**map_arg)
         storage.save()
         print(new_instance.id)

@@ -6,10 +6,6 @@ from models.base_model import BaseModel
 class Review(BaseModel):
     """Review classto store review information"""
 
-    place_id = ""
-    user_id = ""
-    text = ""
-
     def __init__(self, place_id, user_id, text, *args, **kwargs):
         super().__init__(**kwargs)
 

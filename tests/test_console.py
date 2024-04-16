@@ -233,12 +233,12 @@ class TestConsole(unittest.TestCase):
             output = f.getvalue().strip()
             self.assertIn(f"User.{output}", storage.all().keys())
 
-    # def test_command_create_User(self):
-    #     """test_command_create_User"""
-    #     with patch("sys.stdout", new=StringIO()) as f:
-    #         self.console.onecmd("create User")
-    #         output = f.getvalue().strip()
-    #         self.assertIn(f"User.{output}", storage.all().keys())
+    def test_command_create_User(self):
+        """test_command_create_User"""
+        with patch("sys.stdout", new=StringIO()) as f:
+            self.console.onecmd("create User")
+            output = f.getvalue().strip()
+            self.assertIn(f"User.{output}", storage.all().keys())
 
     # def test_command_create_City(self):
     #     """test_command_create_City"""

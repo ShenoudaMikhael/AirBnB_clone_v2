@@ -6,8 +6,8 @@ from models.base_model import BaseModel
 class City(BaseModel):
     """The city class, contains state ID and name"""
 
-    def __init__(self, name, state_id, *args, **kwargs):
-        """Init new City """
+    def __init__(self, name="", state_id=0, *args, **kwargs):
+        """Init new City"""
 
         super().__init__(**kwargs)
         self.name = name

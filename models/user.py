@@ -8,7 +8,7 @@ class User(BaseModel):
 
     def __init__(
         self, email="",
-        password="", first_name="", last_name="", **kwarg
+        password="", first_name="", last_name="", *args, **kwarg
     ):
         """Init new User"""
         super().__init__(**kwarg)

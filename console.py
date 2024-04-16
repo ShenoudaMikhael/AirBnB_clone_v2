@@ -138,8 +138,10 @@ class HBNBCommand(cmd.Cmd):
             try:
 
                 k, v = a.split("=")
+                k = k.strip()
+                v = v.strip()
                 if v.startswith('"') and v.endswith('"'):
-                    v = v[1:-1].replace('"', '\"').replace("_", " ")
+                    v = v[1:-1].replace('"', '\\"').replace("_", " ")
                 elif "." in v:
                     v = float(v)
                 else:

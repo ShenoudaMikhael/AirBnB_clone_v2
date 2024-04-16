@@ -10,7 +10,7 @@ class Review(BaseModel):
     user_id = ""
     text = ""
 
-    def __init__(self, place_id, user_id, text, **kwargs):
+    def __init__(self, place_id, user_id, text, *args, **kwargs):
         super().__init__(**kwargs)
 
         self.place_id = place_id

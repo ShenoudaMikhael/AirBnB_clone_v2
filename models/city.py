@@ -9,7 +9,7 @@ class City(BaseModel):
     state_id = ""
     name = ""
 
-    def __init__(self, name, state_id, **kwargs):
+    def __init__(self, name, state_id, *args, **kwargs):
         super().__init__(**kwargs)
         self.name = name
         self.state_id = state_id

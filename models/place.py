@@ -31,6 +31,7 @@ class Place(BaseModel):
         latitude,
         longitude,
         amenity_ids,
+        *args,
         **kwargs
     ):
         super().__init__(**kwargs)

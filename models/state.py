@@ -8,6 +8,6 @@ class State(BaseModel):
 
     name = ""
 
-    def __init__(self, name, **kwargs):
+    def __init__(self, name, *args, **kwargs):
         super().__init__(**kwargs)
         self.name = name

@@ -92,7 +92,6 @@ class TestConsole(unittest.TestCase):
         with patch("sys.stdout", new=StringIO()) as f:
             self.console.onecmd("wrongComand")
             self.assertEqual(f.getvalue().strip(), "")
-            # self.assertEqual(f.getvalue().strip(), "*** Unknown syntax: wrongComand")
 
     def test_help_command(self):
         """test_help_command"""
@@ -236,8 +235,10 @@ class TestConsole(unittest.TestCase):
         """test_update_missing_attribute"""
         with patch("sys.stdout", new=StringIO()) as f:
             instance = BaseModel()
-            self.assertFalse(self.console.onecmd(f"update BaseModel {instance.id}"))
-            self.assertEqual(f.getvalue().strip(), "** attribute name missing **")
+            self.assertFalse(self.console.onecmd(
+                f"update BaseModel {instance.id}"))
+            self.assertEqual(
+                f.getvalue().strip(), "** attribute name missing **")
 
     def test_update_missing_value(self):
         """test_update_missing_value"""
@@ -315,11 +316,12 @@ class TestConsole(unittest.TestCase):
 
     def test_command_update_User(self):
         """test_command_update_User"""
-        with patch("sys.stdout", new=StringIO()) as f:
+        with patch("sys.stdout", new=StringIO()):
             instance = User()
             instance.email = "ABC"
             self.assertEqual("ABC", instance.email)
-            self.console.onecmd("update User {} email testemail".format(instance.id))
+            self.console.onecmd(
+                "update User {} email testemail".format(instance.id))
             self.assertEqual("testemail", instance.email)
 
 

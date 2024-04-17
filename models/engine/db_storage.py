@@ -65,12 +65,12 @@ class DBStorage:
 
     def new(self, obj):
         """Add obj to database"""
-        print("NEW")
+
         self.__session.add(obj)
 
     def save(self):
         """Commit all changes to database"""
-        print("save")
+
         self.__session.commit()
 
     def delete(self, obj=None):
@@ -83,7 +83,6 @@ class DBStorage:
         Base.metadata.create_all(self.__engine)
         SessionFactory = sessionmaker(bind=self.__engine, expire_on_commit=False)
         self.__session = scoped_session(SessionFactory)()
-        print("AAAAA")
 
     def close(self):
         """Close SQLAlchemy session"""

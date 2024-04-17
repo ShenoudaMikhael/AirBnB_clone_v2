@@ -22,6 +22,7 @@ class Place(BaseModel):
         *args,
         **kwargs
     ):
+        """Init function"""
         super().__init__(*args, **kwargs)
 
         self.city_id = city_id

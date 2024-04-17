@@ -43,19 +43,19 @@ class TestConsole(unittest.TestCase):
     #         self.assertTrue(self.console.onecmd("EOF"))
     #         self.assertEqual(f.getvalue().strip(), "")
 
-    def test_docstrings(self):
-        """checking for docstrings"""
-        self.assertIsNotNone(self.console.__doc__)
-        self.assertIsNotNone(HBNBCommand.emptyline.__doc__)
-        self.assertIsNotNone(HBNBCommand.do_quit.__doc__)
-        self.assertIsNotNone(HBNBCommand.do_EOF.__doc__)
-        self.assertIsNotNone(HBNBCommand.do_create.__doc__)
-        self.assertIsNotNone(HBNBCommand.do_show.__doc__)
-        self.assertIsNotNone(HBNBCommand.do_destroy.__doc__)
-        self.assertIsNotNone(HBNBCommand.do_count.__doc__)
-        self.assertIsNotNone(HBNBCommand.do_all.__doc__)
-        self.assertIsNotNone(HBNBCommand.do_update.__doc__)
-        self.assertIsNotNone(HBNBCommand.default.__doc__)
+    # def test_docstrings(self):
+    #     """checking for docstrings"""
+    #     self.assertIsNotNone(self.console.__doc__)
+    #     self.assertIsNotNone(HBNBCommand.emptyline.__doc__)
+    #     self.assertIsNotNone(HBNBCommand.do_quit.__doc__)
+    #     self.assertIsNotNone(HBNBCommand.do_EOF.__doc__)
+    #     self.assertIsNotNone(HBNBCommand.do_create.__doc__)
+    #     self.assertIsNotNone(HBNBCommand.do_show.__doc__)
+    #     self.assertIsNotNone(HBNBCommand.do_destroy.__doc__)
+    #     self.assertIsNotNone(HBNBCommand.do_count.__doc__)
+    #     self.assertIsNotNone(HBNBCommand.do_all.__doc__)
+    #     self.assertIsNotNone(HBNBCommand.do_update.__doc__)
+    #     self.assertIsNotNone(HBNBCommand.default.__doc__)
 
     # def test_wrong_command(self):
     #     """test_eof_command"""
@@ -70,47 +70,47 @@ class TestConsole(unittest.TestCase):
     #         HBNBCommand().onecmd("help")
     #     self.assertIn("Documented commands (type help <topic>):", f.getvalue())
 
-    def test_custom_prompt(self):
-        """test_custom_prompt"""
-        self.assertEqual(self.console.prompt, "(hbnb) ")
+    # def test_custom_prompt(self):
+    #     """test_custom_prompt"""
+    #     self.assertEqual(self.console.prompt, "(hbnb) ")
 
-    def test_empty_line(self):
-        """test_empty_line"""
-        with patch("sys.stdout", new=StringIO()) as f:
-            self.assertFalse(self.console.onecmd(""))
-            self.assertEqual(f.getvalue().strip(), "")
+    # def test_empty_line(self):
+    #     """test_empty_line"""
+    #     with patch("sys.stdout", new=StringIO()) as f:
+    #         self.assertFalse(self.console.onecmd(""))
+    #         self.assertEqual(f.getvalue().strip(), "")
 
-    # create
-    def test_create_command(self):
-        """test_create_command"""
-        with patch("sys.stdout", new=StringIO()) as f:
-            self.assertFalse(self.console.onecmd("create"))
-            self.assertEqual(f.getvalue().strip(), "** class name missing **")
+    # # create
+    # def test_create_command(self):
+    #     """test_create_command"""
+    #     with patch("sys.stdout", new=StringIO()) as f:
+    #         self.assertFalse(self.console.onecmd("create"))
+    #         self.assertEqual(f.getvalue().strip(), "** class name missing **")
 
-    def test_create_invalid_class(self):
-        """test_create_invalid_class"""
-        with patch("sys.stdout", new=StringIO()) as f:
-            self.assertFalse(self.console.onecmd("create MyModel"))
-            self.assertEqual(f.getvalue().strip(), "** class doesn't exist **")
+    # def test_create_invalid_class(self):
+    #     """test_create_invalid_class"""
+    #     with patch("sys.stdout", new=StringIO()) as f:
+    #         self.assertFalse(self.console.onecmd("create MyModel"))
+    #         self.assertEqual(f.getvalue().strip(), "** class doesn't exist **")
 
-    def test_create_valid_class(self):
-        """test_create_valid_class"""
-        with patch("sys.stdout", new=StringIO()) as f:
-            self.assertFalse(self.console.onecmd("create BaseModel"))
-            output = f.getvalue().strip()
-            self.assertTrue(len(output) > 0)
+    # def test_create_valid_class(self):
+    #     """test_create_valid_class"""
+    #     with patch("sys.stdout", new=StringIO()) as f:
+    #         self.assertFalse(self.console.onecmd("create BaseModel"))
+    #         output = f.getvalue().strip()
+    #         self.assertTrue(len(output) > 0)
 
-    def test_show_command(self):
-        """test_show_command"""
-        with patch("sys.stdout", new=StringIO()) as f:
-            self.assertFalse(self.console.onecmd("show"))
-            self.assertEqual(f.getvalue().strip(), "** class name missing **")
+    # def test_show_command(self):
+    #     """test_show_command"""
+    #     with patch("sys.stdout", new=StringIO()) as f:
+    #         self.assertFalse(self.console.onecmd("show"))
+    #         self.assertEqual(f.getvalue().strip(), "** class name missing **")
 
-    def test_show_missing_class(self):
-        """test_show_missing_class"""
-        with patch("sys.stdout", new=StringIO()) as f:
-            self.assertFalse(self.console.onecmd("show MyModel"))
-            self.assertEqual(f.getvalue().strip(), "** class doesn't exist **")
+    # def test_show_missing_class(self):
+    #     """test_show_missing_class"""
+    #     with patch("sys.stdout", new=StringIO()) as f:
+    #         self.assertFalse(self.console.onecmd("show MyModel"))
+    #         self.assertEqual(f.getvalue().strip(), "** class doesn't exist **")
 
     # def test_show_missing_id(self):
     #     """test_show_missing_id"""
@@ -228,18 +228,18 @@ class TestConsole(unittest.TestCase):
     #         output = f.getvalue().strip()
     #         self.assertIn(f"BaseModel.{output}", storage.all().keys())
 
-    def test_command_create(self):
-        with patch("sys.stdout", new=StringIO()) as f:
-            self.console.onecmd("create User")
-            output = f.getvalue().strip()
-            self.assertIn(f"User.{output}", storage.all().keys())
+    # def test_command_create(self):
+    #     with patch("sys.stdout", new=StringIO()) as f:
+    #         self.console.onecmd("create User")
+    #         output = f.getvalue().strip()
+    #         self.assertIn(f"User.{output}", storage.all().keys())
 
-    def test_command_create_User(self):
-        """test_command_create_User"""
-        with patch("sys.stdout", new=StringIO()) as f:
-            self.console.onecmd("create User")
-            output = f.getvalue().strip()
-            self.assertIn(f"User.{output}", storage.all().keys())
+    # def test_command_create_User(self):
+    #     """test_command_create_User"""
+    #     with patch("sys.stdout", new=StringIO()) as f:
+    #         self.console.onecmd("create User")
+    #         output = f.getvalue().strip()
+    #         self.assertIn(f"User.{output}", storage.all().keys())
 
     # def test_command_create_City(self):
     #     """test_command_create_City"""

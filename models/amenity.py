@@ -5,7 +5,6 @@ from models.base_model import BaseModel
 
 class Amenity(BaseModel):
 
-    def __init__(self, name="", *args, **kwargs):
-        """Init new Amenity"""
-        super().__init__(**kwargs)
+    def __init__(self, *args, name="", **kwargs):
+        super().__init__(*args, **kwargs)
         self.name = name

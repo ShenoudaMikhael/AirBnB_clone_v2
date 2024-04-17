@@ -13,7 +13,7 @@ class Place(BaseModel):
         name="",
         description="",
         number_rooms=0,
-        number_bathrooms=0,
+        number_bathroom=0,
         max_guest=0,
         price_by_night=0,
         latitude=0.0,
@@ -30,7 +30,7 @@ class Place(BaseModel):
         self.name = name
         self.description = description
         self.number_rooms = number_rooms
-        self.number_bathroom = number_bathrooms
+        self.number_bathroom = number_bathroom
         self.max_guest = max_guest
         self.price_by_night = price_by_night
         self.latitude = latitude

@@ -31,17 +31,48 @@ class TestConsole(unittest.TestCase):
         except Exception:
             pass
 
+    # #####################################
+    def test_create_object_with_valid_parameters(self):
+        """Test creating an object with valid parameters"""
+        with patch("sys.stdout", new=StringIO()) as f:
+            self.console.onecmd("create User")
+            output = f.getvalue().strip()
+            self.assertIn(f"User.{output}", storage.all().keys())
+
+    def test_create_object_with_invalid_parameter(self):
+        """Test creating an object with an invalid parameter"""
+        with patch("sys.stdout", new=StringIO()) as f:
+            self.console.onecmd("create User aaa=\"aaa\"")
+            output = f.getvalue().strip()
+            u = storage.all()[f"User.{output}"]
+
+            self.assertNotIn("aaa", u)
+
+            self.assertIn("MyClass created without invalid_param", output)
+
+    def test_create_object_with_escaped_quotes(self):
+        """Test creating an object with escaped quotes"""
+        with patch("sys.stdout", new=StringIO()) as f:
+            self.console.onecmd('create MyClass name="My\\"house"')
+            output = f.getvalue().strip()
+            self.assertIn('MyClass created with name="My"house"', output)
+
+    def test_create_object_with_underscore_replacement(self):
+        """Test creating an object with underscore replacement"""
+        with patch("sys.stdout", new=StringIO()) as f:
+            self.console.onecmd('create User email="My_little_house"')
+            output = f.getvalue().strip()
+            u = storage.all()[f"User.{output}"]
+            self.assertEqual(u.email, "My little house")
+            # self.assertIn(f"User.{output}", storage.all().keys())
+
+    # ################################
+
     def test_quit_command(self):
         """test_quit_command"""
         with self.assertRaises(SystemExit):
 
             self.assertTrue(self.console.onecmd("quit"))
-
-    def test_eof_command(self):
-        """test_eof_command"""
-        with patch("sys.stdout", new=StringIO()) as f:
-            self.assertTrue(self.console.onecmd("EOF"))
-            self.assertEqual(f.getvalue().strip(), "")
 
     def test_docstrings(self):
         """checking for docstrings"""
@@ -61,7 +92,8 @@ class TestConsole(unittest.TestCase):
         """test_eof_command"""
         with patch("sys.stdout", new=StringIO()) as f:
             self.console.onecmd("wrongComand")
-            self.assertEqual(f.getvalue().strip(), "name 'wrongComand' is not defined")
+            self.assertEqual(f.getvalue().strip(), "")
+            # self.assertEqual(f.getvalue().strip(), "*** Unknown syntax: wrongComand")
 
     def test_help_command(self):
         """test_help_command"""

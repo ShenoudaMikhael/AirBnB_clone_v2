@@ -10,6 +10,8 @@ from models.place import Place
 from models.review import Review
 from models.state import State
 from models.user import User
+from models.amenity import Amenity
+
 
 class DBStorage:
     """database storage engine"""
@@ -25,7 +27,7 @@ class DBStorage:
         env = os.getenv('HBNB_ENV')
         DATABASE_URL = "mysql+mysqldb://{}:{}@{}:3306/{} \
             ".format(user, pwd, host, db_name)
-        self.__engine = create_engine(DATABASE_URL,pool_pre_ping=True)
+        self.__engine = create_engine(DATABASE_URL, pool_pre_ping=True)
         if env == 'test':
             Base.metadata.drop_all(self.__engine)
 

@@ -1,12 +1,11 @@
 #!/usr/bin/python3
 """ State Module for HBNB project """
-from models.base_model import BaseModel
+from models.base_model import BaseModel, Base, Column, String
 
 
-class Amenity(BaseModel):
+class Amenity(BaseModel, Base):
     """This class defines a Amenity by various attributes"""
 
-    def __init__(self, *args, name="", **kwargs):
-        """Init function"""
-        super().__init__(*args, **kwargs)
-        self.name = name
+    __tablename__ = "amenities"
+
+    name = Column(String(128), nullable=False)

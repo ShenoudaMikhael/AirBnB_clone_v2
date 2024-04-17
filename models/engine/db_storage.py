@@ -35,25 +35,42 @@ class DBStorage:
 
     def all(self, cls=None):
         """Query on curret database"""
-        if cls is None:
-            objs = self.__session.query(State).all()
-            objs.extend(self.__session.query(City).all())
-            objs.extend(self.__session.query(User).all())
-            objs.extend(self.__session.query(Place).all())
-            objs.extend(self.__session.query(Review).all())
-            objs.extend(self.__session.query(Amenity).all())
-        else:
-            if isinstance(cls, str):
+        classes = {
+            "City": City,
+            "State": State,
+            "User": User,
+            "Place": Place,
+            "Review": Review,
+            "Amenity": Amenity,
+        }
+        qr = {}
+        query_rows = []
+
+        if cls:
+
+            if type(cls) is str:
                 cls = eval(cls)
-            objs = self.__session.query(cls)
-        return {"{}.{}".format(type(i).__name__, i.id): i for i in objs}
+            query_rows = self.__session.query(cls)
+            for row in query_rows:
+                k = "{}.{}".format(type(row).__name__, row.id)
+                qr[k] = row
+            return qr
+
+        for name, value in classes.items():
+            query_rows = self.__session.query(value)
+            for row in query_rows:
+                k = "{}.{}".format(name, row.id)
+                qr[k] = row
+        return qr
 
     def new(self, obj):
         """Add obj to database"""
+        print("NEW")
         self.__session.add(obj)
 
     def save(self):
         """Commit all changes to database"""
+        print("save")
         self.__session.commit()
 
     def delete(self, obj=None):
@@ -64,9 +81,9 @@ class DBStorage:
     def reload(self):
         """Create all tables in database and initialize new session"""
         Base.metadata.create_all(self.__engine)
-        SessionFactory = sessionmaker(
-            bind=self.__engine, expire_on_commit=False)
+        SessionFactory = sessionmaker(bind=self.__engine, expire_on_commit=False)
         self.__session = scoped_session(SessionFactory)()
+        print("AAAAA")
 
     def close(self):
         """Close SQLAlchemy session"""

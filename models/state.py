@@ -10,19 +10,20 @@ class State(BaseModel, Base):
 
     __tablename__ = "states"
 
-    def __init__(self, *args, name="", **kwargs):
-        """Init function"""
+    # def __init__(self, *args, name="", **kwargs):
+    #     """Init function"""
 
-        super().__init__(*args, **kwargs)
-        self.name = name
+    #     super().__init__(*args, **kwargs)
+    #     self.name = name
 
     if getenv("HBNB_TYPE_STORAGE") == "db":
+        print("HBNB_TYPE_STORAGE")
         name = Column(String(128), nullable=False)
         cities = relationship("City", backref="state", cascade="all, delete")
 
     else:
 
-        @getattr
+        @property
         def cities(self):
             """Get list of cities for this state"""
             from models import storage

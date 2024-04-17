@@ -11,8 +11,4 @@ class City(BaseModel, Base):
     name = Column(String(128), nullable=False)
     state_id = Column(String(60), ForeignKey("states.id"), nullable=False)
 
-    def __init__(self, *args, state_id="", name="", **kwargs):
-        """Init function"""
-        super().__init__(*args, **kwargs)
-        self.state_id = state_id
-        self.name = name
+

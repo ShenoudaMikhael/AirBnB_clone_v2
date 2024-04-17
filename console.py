@@ -61,12 +61,12 @@ class HBNBCommand(cmd.Cmd):
             _cls = pline[: pline.find(".")]
 
             # isolate and validate <command>
-            _cmd = pline[pline.find(".") + 1: pline.find("(")]
+            _cmd = pline[pline.find(".") + 1 : pline.find("(")]
             if _cmd not in HBNBCommand.dot_cmds:
                 raise Exception
 
             # if parantheses contain arguments, parse them
-            pline = pline[pline.find("(") + 1: pline.find(")")]
+            pline = pline[pline.find("(") + 1 : pline.find(")")]
             if pline:
                 # partition args: (<id>, [<delim>], [<*args>])
                 pline = pline.partition(", ")  # pline convert to tuple
@@ -156,7 +156,9 @@ class HBNBCommand(cmd.Cmd):
         for k, v in map_arg.items():
             if hasattr(new_instance, k):
                 setattr(new_instance, k, v)
-        storage.save()
+
+        print("savesave")
+        new_instance.save()
         print(new_instance.id)
 
     def help_create(self):
@@ -239,11 +241,11 @@ class HBNBCommand(cmd.Cmd):
             if args not in HBNBCommand.classes:
                 print("** class doesn't exist **")
                 return
-            for k, v in storage._FileStorage__objects.items():
+            for k, v in storage.all().items():
                 if k.split(".")[0] == args:
                     print_list.append(str(v))
         else:
-            for k, v in storage._FileStorage__objects.items():
+            for k, v in storage.all().items():
                 print_list.append(str(v))
 
         print(print_list)
@@ -308,7 +310,7 @@ class HBNBCommand(cmd.Cmd):
             if args and args[0] == '"':  # check for quoted arg
                 second_quote = args.find('"', 1)
                 att_name = args[1:second_quote]
-                args = args[second_quote + 1:]
+                args = args[second_quote + 1 :]
 
             args = args.partition(" ")
 
@@ -317,7 +319,7 @@ class HBNBCommand(cmd.Cmd):
                 att_name = args[0]
             # check for quoted val arg
             if args[2] and args[2][0] == '"':
-                att_val = args[2][1: args[2].find('"', 1)]
+                att_val = args[2][1 : args[2].find('"', 1)]
 
             # if att_val was not quoted arg
             if not att_val and args[2]:

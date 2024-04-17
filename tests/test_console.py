@@ -1,4 +1,5 @@
 """Console Module Test cases"""
+
 import unittest
 import json
 import os
@@ -12,6 +13,7 @@ from models import storage
 
 class TestConsole(unittest.TestCase):
     """Test Console class"""
+
     def setUp(self):
         """setUp"""
         self.console = HBNBCommand()
@@ -84,7 +86,6 @@ class TestConsole(unittest.TestCase):
         with patch("sys.stdout", new=StringIO()) as f:
             self.assertFalse(self.console.onecmd("create"))
             self.assertEqual(f.getvalue().strip(), "** class name missing **")
-
 
     def test_create_invalid_class(self):
         """test_create_invalid_class"""

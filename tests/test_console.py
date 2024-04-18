@@ -235,8 +235,10 @@ class TestConsole(unittest.TestCase):
         """test_update_missing_attribute"""
         with patch("sys.stdout", new=StringIO()) as f:
             instance = BaseModel()
-            self.assertFalse(self.console.onecmd(f"update BaseModel {instance.id}"))
-            self.assertEqual(f.getvalue().strip(), "** attribute name missing **")
+            self.assertFalse(
+                self.console.onecmd(f"update BaseModel {instance.id}"))
+            self.assertEqual(
+                f.getvalue().strip(), "** attribute name missing **")
 
     def test_update_missing_value(self):
         """test_update_missing_value"""
@@ -319,7 +321,8 @@ class TestConsole(unittest.TestCase):
             instance.email = "ABC"
             instance.save()
             self.assertEqual("ABC", instance.email)
-            self.console.onecmd("update User {} email testemail".format(instance.id))
+            self.console.onecmd(
+                "update User {} email testemail".format(instance.id))
             self.assertEqual("testemail", instance.email)
 
 

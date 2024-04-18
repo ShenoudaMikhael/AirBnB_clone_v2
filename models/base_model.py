@@ -19,7 +19,6 @@ class BaseModel:
         """Instatntiates a new model"""
         if not kwargs:
             self.id = str(uuid.uuid4())
-            
             self.updated_at = self.created_at = datetime.now()
 
         else:

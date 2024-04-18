@@ -2,6 +2,9 @@
 """ Console Module """
 import cmd
 import sys
+import os
+import uuid
+from datetime import datetime
 from models.base_model import BaseModel
 from models.__init__ import storage
 from models.user import User
@@ -152,13 +155,33 @@ class HBNBCommand(cmd.Cmd):
 
             except ValueError:
                 continue
-        new_instance = HBNBCommand.classes[current_class]()
-        for k, v in map_arg.items():
-            if hasattr(new_instance, k):
-                setattr(new_instance, k, v)
 
-        new_instance.save()
-        print(new_instance.id)
+        class_name = args
+        if os.getenv('HBNB_TYPE_STORAGE') == 'db':
+            if not hasattr(map_arg, 'id'):
+                map_arg['id'] = str(uuid.uuid4())
+            if not hasattr(map_arg, 'created_at'):
+                map_arg['created_at'] = str(datetime.now())
+            if not hasattr(map_arg, 'updated_at'):
+                map_arg['updated_at'] = str(datetime.now())
+            new_instance = HBNBCommand.classes[class_name](**map_arg)
+            new_instance.save()
+            print(new_instance.id)
+        else:
+            new_instance = HBNBCommand.classes[class_name]()
+            for key, value in map_arg.items():
+                if key not in ignored_attrs:
+                    setattr(new_instance, key, value)
+            new_instance.save()
+            print(new_instance.id)
+
+        # new_instance = HBNBCommand.classes[current_class]()
+        # for k, v in map_arg.items():
+        #     if hasattr(new_instance, k):
+        #         setattr(new_instance, k, v)
+
+        # new_instance.save()
+        # print(new_instance.id)
 
     def help_create(self):
         """Help information for the create method"""

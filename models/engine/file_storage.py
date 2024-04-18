@@ -64,9 +64,3 @@ class FileStorage:
         if obj:
             del FileStorage.__objects[
                 "{}.{}".format(obj.__class__.__name__, obj.id)]
-
-    def create(self, cls, **dictionary):
-        """Create a new instance of a class and save it to storage"""
-        new_instance = cls(**dictionary)
-        self.new(new_instance)
-        return new_instance

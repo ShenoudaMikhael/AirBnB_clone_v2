@@ -1,9 +1,9 @@
 #!/usr/bin/python3
 """ Place Module for HBNB project """
+from os import getenv
 from sqlalchemy import Integer, Float, Table, ForeignKey
 from sqlalchemy.orm import relationship
 from models.base_model import BaseModel, Base, Column, String
-from os import getenv
 from models.amenity import Amenity
 
 # Association table

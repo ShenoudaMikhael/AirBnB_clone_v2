@@ -81,7 +81,8 @@ class TestState(unittest.TestCase):
         self.assertEqual(datetime, type(st.updated_at))
         self.assertTrue(hasattr(st, "name"))
 
-    @unittest.skipIf(type(models.storage) == FileStorage, "Testing FileStorage")
+    @unittest.skipIf(type(models.storage) == FileStorage,
+                     "Testing FileStorage")
     def test_nullable_attributes(self):
         """Check that relevant DBStorage attributes are non-nullable."""
         with self.assertRaises(OperationalError):
@@ -125,8 +126,10 @@ class TestState(unittest.TestCase):
         s = self.state.__str__()
         self.assertIn("[State] ({})".format(self.state.id), s)
         self.assertIn("'id': '{}'".format(self.state.id), s)
-        self.assertIn("'created_at': {}".format(repr(self.state.created_at)), s)
-        self.assertIn("'updated_at': {}".format(repr(self.state.updated_at)), s)
+        self.assertIn("'created_at': {} \
+            ".format(repr(self.state.created_at)), s)
+        self.assertIn("'updated_at': {} \
+            ".format(repr(self.state.updated_at)), s)
         self.assertIn("'name': '{}'".format(self.state.name), s)
 
     @unittest.skipIf(type(models.storage) == DBStorage, "Testing DBStorage")
@@ -138,7 +141,8 @@ class TestState(unittest.TestCase):
         with open("file.json", "r") as f:
             self.assertIn("State." + self.state.id, f.read())
 
-    @unittest.skipIf(type(models.storage) == FileStorage, "Testing FileStorage")
+    @unittest.skipIf(type(models.storage) == FileStorage,
+                     "Testing FileStorage")
     def test_save_dbstorage(self):
         """Test save method with DBStorage."""
         old = self.state.updated_at

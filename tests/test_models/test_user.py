@@ -84,7 +84,8 @@ class TestUser(unittest.TestCase):
         self.assertTrue(hasattr(us, "places"))
         self.assertTrue(hasattr(us, "reviews"))
 
-    @unittest.skipIf(type(models.storage) == FileStorage, "Testing FileStorage")
+    @unittest.skipIf(type(models.storage) == FileStorage,
+                     "Testing FileStorage")
     def test_email_not_nullable(self):
         """Test that email attribute is non-nullable."""
         with self.assertRaises(OperationalError):
@@ -137,7 +138,8 @@ class TestUser(unittest.TestCase):
         with open("file.json", "r") as f:
             self.assertIn("User." + self.user.id, f.read())
 
-    @unittest.skipIf(type(models.storage) == FileStorage, "Testing FileStorage")
+    @unittest.skipIf(type(models.storage) == FileStorage,
+                     "Testing FileStorage")
     def test_save_dbstorage(self):
         """Test save method with DBStorage."""
         old = self.user.updated_at
@@ -165,8 +167,10 @@ class TestUser(unittest.TestCase):
         self.assertEqual(dict, type(user_dict))
         self.assertEqual(self.user.id, user_dict["id"])
         self.assertEqual("User", user_dict["__class__"])
-        self.assertEqual(self.user.created_at.isoformat(), user_dict["created_at"])
-        self.assertEqual(self.user.updated_at.isoformat(), user_dict["updated_at"])
+        self.assertEqual(self.user.created_at.isoformat(),
+                         user_dict["created_at"])
+        self.assertEqual(self.user.updated_at.isoformat(),
+                         user_dict["updated_at"])
         self.assertEqual(self.user.email, user_dict["email"])
         self.assertEqual(self.user.password, user_dict["password"])
 

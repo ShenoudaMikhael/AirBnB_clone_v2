@@ -156,6 +156,7 @@ class HBNBCommand(cmd.Cmd):
             except ValueError:
                 continue
 
+        ignored_attrs = ('id', 'created_at', 'updated_at', '__class__')
         class_name = args
         if os.getenv('HBNB_TYPE_STORAGE') == 'db':
             if not hasattr(map_arg, 'id'):

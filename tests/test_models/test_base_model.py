@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 """ """
 import os
+import pycodestyle
 import unittest
 from datetime import datetime
 from models.base_model import BaseModel
@@ -43,6 +44,12 @@ class TestBaseModel(unittest.TestCase):
             pass
         del cls.storage
         del cls.base
+
+    def test_pycodestyle(self):
+        """Test pycodestyle styling."""
+        style = pycodestyle.StyleGuide(quiet=True)
+        p = style.check_files(["models/base_model.py"])
+        self.assertEqual(p.total_errors, 0, "fix pycodestyle")
 
     def test_docstrings(self):
         """Check for docstrings."""
@@ -108,10 +115,8 @@ class TestBaseModel(unittest.TestCase):
         self.assertEqual(dict, type(base_dict))
         self.assertEqual(self.base.id, base_dict["id"])
         self.assertEqual("BaseModel", base_dict["__class__"])
-        self.assertEqual(
-            self.base.created_at.isoformat(), base_dict["created_at"])
-        self.assertEqual(
-            self.base.updated_at.isoformat(), base_dict["updated_at"])
+        self.assertEqual(self.base.created_at.isoformat(), base_dict["created_at"])
+        self.assertEqual(self.base.updated_at.isoformat(), base_dict["updated_at"])
         self.assertEqual(base_dict.get("_sa_instance_state", None), None)
 
     @unittest.skipIf(os.getenv("HBNB_ENV") is not None, "Testing DBStorage")

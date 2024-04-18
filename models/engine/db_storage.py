@@ -81,7 +81,8 @@ class DBStorage:
     def reload(self):
         """Create all tables in database and initialize new session"""
         Base.metadata.create_all(self.__engine)
-        SessionFactory = sessionmaker(bind=self.__engine, expire_on_commit=False)
+        SessionFactory = sessionmaker(
+            bind=self.__engine, expire_on_commit=False)
         self.__session = scoped_session(SessionFactory)()
 
     def close(self):

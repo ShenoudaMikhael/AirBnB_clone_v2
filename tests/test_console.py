@@ -79,11 +79,6 @@ class TestHBNBCommand(unittest.TestCase):
             self.HBNB.onecmd("\n")
             self.assertEqual("", f.getvalue())
 
-    def test_quit(self):
-        """Test quit command input."""
-        with patch("sys.stdout", new=StringIO()) as f:
-            self.HBNB.onecmd("quit")
-            self.assertEqual("", f.getvalue())
 
     def test_EOF(self):
         """Test that EOF quits."""

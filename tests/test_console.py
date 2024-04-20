@@ -218,7 +218,7 @@ class TestHBNBCommand(unittest.TestCase):
         with patch("sys.stdout", new=StringIO()) as f:
             self.HBNB.onecmd("all User")
             obj = f.getvalue()
-        my_id = obj[obj.find("(") + 1 : obj.find(")")]
+        my_id = obj[obj.find("(") + 1: obj.find(")")]
         with patch("sys.stdout", new=StringIO()) as f:
             self.HBNB.onecmd("update User " + my_id)
             self.assertEqual("** no instance found **\n", f.getvalue())
@@ -263,6 +263,7 @@ class TestHBNBCommand(unittest.TestCase):
         with patch("sys.stdout", new=StringIO()) as f:
             self.HBNB.onecmd("User.destroy(12345)")
             self.assertEqual("", f.getvalue())
+
 
 if __name__ == "__main__":
     unittest.main()

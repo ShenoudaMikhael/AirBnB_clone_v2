@@ -2,22 +2,22 @@
 """web static deploy module """
 import os
 from datetime import datetime
-import fabric.api as fab
+from fabric.api import env, sudo, local, put
 
-fab.env.hosts = ["34.201.165.130", "34.224.62.173"]
+env.hosts = ["34.201.165.130", "34.224.62.173"]
 now = datetime.utcnow().strftime("%Y%m%d%H%M%S")
 
 
 def do_pack():
     """do pack fabric functioin"""
-    
+
     archive_name = f"web_static_{now}.tgz"
     versions_dir = "versions"
     if not os.path.exists(versions_dir):
-        fab.local(f"mkdir {versions_dir}")
+        local(f"mkdir {versions_dir}")
     try:
 
-        fab.local(
+        local(
             "tar -czvf {} web_static/".format(
                 os.path.join(versions_dir, archive_name))
         )
@@ -38,23 +38,22 @@ def do_deploy(archive_path):
 
         # put: versions/web_static_20170315003959.tgz ->
         # /tmp/web_static_20170315003959.tgz
-        fab.put(archive_path, tmp_dir, use_sudo=True)
+        put(archive_path, tmp_dir, use_sudo=True)
         # run: mkdir -p /data/web_static/releases/web_static_20170315003959/
-        fab.sudo("mkdir -p {}".format(extract_dir))
+        sudo("mkdir -p {}".format(extract_dir))
         # run: tar -xzf /tmp/web_static_20170315003959.tgz -C
         #  /data/web_static/releases/web_static_20170315003959/
-        fab.sudo("tar -xzf {} -C {}".format(tmp_dir, extract_dir))
-        fab.sudo("rm {}".format(tmp_dir))
+        sudo("tar -xzf {} -C {}".format(tmp_dir, extract_dir))
+        sudo("rm {}".format(tmp_dir))
         d1 = "/data/web_static/releases/{}/web_static/*".format(file_name_dir)
         d2 = "/data/web_static/releases/{}/".format(file_name_dir)
-        fab.sudo("mv -f {} {}".format(d1, d2))
-        fab.sudo(
-            "rm -rf /data/web_static/releases/{}/web_static".format(
-                file_name_dir))
+        sudo("mv -f {} {}".format(d1, d2))
+        sudo("rm -rf /data/web_static/releases/{}/web_static".format(
+            file_name_dir))
         l1 = "/data/web_static/releases/{}/".format(file_name_dir)
         lc = "/data/web_static/current"
-        fab.sudo("rm -rf {}".format(lc))
-        fab.sudo("ln -s {} {}".format(l1, lc))
+        sudo("rm -rf {}".format(lc))
+        sudo("ln -s {} {}".format(l1, lc))
         return True
     except Exception:
         return False

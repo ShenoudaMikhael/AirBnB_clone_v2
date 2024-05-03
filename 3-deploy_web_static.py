@@ -29,7 +29,8 @@ def do_deploy(archive_path):
     """web static deploy"""
     if not os.path.exists(archive_path):
         return False
-
+    if not os.path.isfile(archive_path):
+        return False
     file_name = archive_path.split("/")[-1]
     file_name_dir = file_name.split(".")[0]
     tmp_dir = "/tmp/{}".format(file_name)

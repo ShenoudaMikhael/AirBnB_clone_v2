@@ -1,10 +1,29 @@
 #!/usr/bin/python3
 """web static deploy module """
 import os
+from datetime import datetime
 import fabric.api as fab
 
 fab.env.hosts = ["34.201.165.130", "34.224.62.173"]
 fab.env.user = "ubuntu"
+
+
+def do_pack():
+    """do pack fabric functioin"""
+    now = datetime.utcnow().strftime("%Y%m%d%H%M%S")
+    archive_name = f"web_static_{now}.tgz"
+    versions_dir = "versions"
+    if not os.path.exists(versions_dir):
+        fab.local(f"mkdir {versions_dir}")
+    try:
+
+        fab.local(
+            "tar -czvf {} web_static/".format(
+                os.path.join(versions_dir, archive_name))
+        )
+        return os.path.join(versions_dir, archive_name)
+    except Exception:
+        return None
 
 
 def do_deploy(archive_path):

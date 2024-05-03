@@ -5,7 +5,6 @@ from datetime import datetime
 import fabric.api as fab
 
 fab.env.hosts = ["34.201.165.130", "34.224.62.173"]
-fab.env.user = "ubuntu"
 
 
 def do_pack():
@@ -49,9 +48,8 @@ def do_deploy(archive_path):
         d1 = "/data/web_static/releases/{}/web_static/*".format(file_name_dir)
         d2 = "/data/web_static/releases/{}/".format(file_name_dir)
         fab.sudo("mv {} {}".format(d1, d2))
-        fab.sudo(
-            "rm -rf /data/web_static/releases/{}/web_static".format(
-                file_name_dir))
+        fab.sudo("rm -rf /data/web_static/releases/{}/web_static".format(
+            file_name_dir))
         l1 = "/data/web_static/releases/{}/".format(file_name_dir)
         lc = "/data/web_static/current"
         fab.sudo("rm -rf {}".format(lc))
@@ -59,3 +57,11 @@ def do_deploy(archive_path):
         return True
     except Exception:
         return False
+
+
+def deploy():
+    archive_path = do_pack()
+    if not archive_path:
+        return False
+    do_deploy(archive_path)
+    return True

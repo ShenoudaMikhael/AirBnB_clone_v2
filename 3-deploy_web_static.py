@@ -60,8 +60,8 @@ def do_deploy(archive_path):
 
 
 def deploy():
+    """deploy function"""
     archive_path = do_pack()
     if not archive_path:
         return False
-    do_deploy(archive_path)
-    return True
+    return do_deploy(archive_path)

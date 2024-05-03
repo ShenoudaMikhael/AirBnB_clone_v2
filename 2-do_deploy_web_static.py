@@ -36,6 +36,7 @@ def do_deploy(archive_path):
         tmp_dir = "/tmp/{}".format(file_name)
         extract_dir = "/data/web_static/releases/{}/".format(file_name_dir)
         if (os.path.exists(extract_dir)):
+            print("Heeerer")
             fab.sudo("rm {}*".format(extract_dir))
         # put: versions/web_static_20170315003959.tgz ->
         # /tmp/web_static_20170315003959.tgz

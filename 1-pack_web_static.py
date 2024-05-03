@@ -21,4 +21,3 @@ def do_pack():
         return os.path.join(versions_dir, archive_name)
     except Exception:
         return None
-

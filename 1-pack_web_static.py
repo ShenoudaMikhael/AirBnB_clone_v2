@@ -1,15 +1,24 @@
 #!/usr/bin/python3
 """web static pack nodule"""
+import os
 from datetime import datetime
 import fabric.api as fab
 
 
 def do_pack():
     """do pack fabric functioin"""
-    now = datetime.utcnow().strftime("%Y%m%d_%H%M%S")
+    now = datetime.utcnow().strftime("%Y%m%d%H%M%S")
     archive_name = f"web_static_{now}.tgz"
-    fab.local(f"tar -czvf versions/{archive_name} web_static/")
-    print(f"Archive created: {archive_name}")
+    versions_dir = "versions"
+    if not os.path.exists(versions_dir):
+        fab.local(f"mkdir {versions_dir}")
+    try:
 
-    # with tarfile.open(output_filename, "w:gz") as tar:
-    # tar.add(source_dir, arcname=os.path.basename(source_dir))
+        fab.local(
+            "tar -czvf {} web_static/".format(
+                os.path.join(versions_dir, archive_name))
+        )
+        return os.path.join(versions_dir, archive_name)
+    except Exception:
+        return None
+

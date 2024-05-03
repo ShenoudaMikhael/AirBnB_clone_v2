@@ -5,11 +5,11 @@ from datetime import datetime
 import fabric.api as fab
 
 fab.env.hosts = ["34.201.165.130", "34.224.62.173"]
+now = datetime.utcnow().strftime("%Y%m%d%H%M%S")
 
 
 def do_pack():
     """do pack fabric functioin"""
-    now = datetime.utcnow().strftime("%Y%m%d%H%M%S")
     archive_name = f"web_static_{now}.tgz"
     versions_dir = "versions"
     if not os.path.exists(versions_dir):

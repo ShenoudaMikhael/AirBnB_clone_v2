@@ -30,11 +30,13 @@ def do_deploy(archive_path):
     """web static deploy"""
     if not os.path.exists(archive_path):
         return False
+    if not os.path.isfile(archive_path):
+        return False
+    file_name = archive_path.split("/")[-1]
+    file_name_dir = file_name.split(".")[0]
+    tmp_dir = "/tmp/{}".format(file_name)
+    extract_dir = "/data/web_static/releases/{}".format(file_name_dir)
     try:
-        file_name = archive_path.split("/")[-1]
-        file_name_dir = file_name.split(".")[0]
-        tmp_dir = "/tmp/{}".format(file_name)
-        extract_dir = "/data/web_static/releases/{}/".format(file_name_dir)
 
         # put: versions/web_static_20170315003959.tgz ->
         # /tmp/web_static_20170315003959.tgz
@@ -47,7 +49,7 @@ def do_deploy(archive_path):
         sudo("rm {}".format(tmp_dir))
         d1 = "/data/web_static/releases/{}/web_static/*".format(file_name_dir)
         d2 = "/data/web_static/releases/{}/".format(file_name_dir)
-        sudo("mv -f {} {}".format(d1, d2))
+        sudo("mv {} {}".format(d1, d2))
         sudo("rm -rf /data/web_static/releases/{}/web_static".format(
             file_name_dir))
         l1 = "/data/web_static/releases/{}/".format(file_name_dir)

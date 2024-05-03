@@ -3,12 +3,14 @@
 import os
 import fabric.api as fab
 
+fab.env.hosts = "34.201.165.130"
+fab.env.user = "ubuntu"
+
 
 def do_deploy(archive_path):
     """web static deploy"""
     # env.hosts = ["34.201.165.130", "34.224.62.173"]
-    fab.env.hosts = "34.201.165.130"
-    fab.env.user = "ubuntu"
+
     file_name = archive_path.split("/")[-1]
     file_name_dir = file_name.split(".")[0]
     tmp_dir = "/tmp/{}".format(file_name)

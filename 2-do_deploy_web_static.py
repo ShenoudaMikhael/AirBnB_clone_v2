@@ -5,11 +5,12 @@ from datetime import datetime
 import fabric.api as fab
 
 fab.env.hosts = ["34.201.165.130", "34.224.62.173"]
+now = datetime.utcnow().strftime("%Y%m%d%H%M%S")
 
 
 def do_pack():
     """do pack fabric functioin"""
-    now = datetime.utcnow().strftime("%Y%m%d%H%M%S")
+    
     archive_name = f"web_static_{now}.tgz"
     versions_dir = "versions"
     if not os.path.exists(versions_dir):
@@ -30,13 +31,12 @@ def do_deploy(archive_path):
     if not os.path.exists(archive_path):
         return False
     try:
-
-        file_name = archive_path.split("/")[1]
+        file_name = archive_path.split("/")[-1]
         file_name_dir = file_name.split(".")[0]
         tmp_dir = "/tmp/{}".format(file_name)
         extract_dir = "/data/web_static/releases/{}/".format(file_name_dir)
         if (os.path.exists(extract_dir)):
-            print("Heeerer")
+
             fab.sudo("rm {}*".format(extract_dir))
         # put: versions/web_static_20170315003959.tgz ->
         # /tmp/web_static_20170315003959.tgz

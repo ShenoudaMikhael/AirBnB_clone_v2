@@ -35,9 +35,7 @@ def do_deploy(archive_path):
         file_name_dir = file_name.split(".")[0]
         tmp_dir = "/tmp/{}".format(file_name)
         extract_dir = "/data/web_static/releases/{}/".format(file_name_dir)
-        if (os.path.exists(extract_dir)):
 
-            fab.sudo("rm {}*".format(extract_dir))
         # put: versions/web_static_20170315003959.tgz ->
         # /tmp/web_static_20170315003959.tgz
         fab.put(archive_path, tmp_dir, use_sudo=True)
@@ -49,7 +47,7 @@ def do_deploy(archive_path):
         fab.sudo("rm {}".format(tmp_dir))
         d1 = "/data/web_static/releases/{}/web_static/*".format(file_name_dir)
         d2 = "/data/web_static/releases/{}/".format(file_name_dir)
-        fab.sudo("mv {} {}".format(d1, d2))
+        fab.sudo("mv -f {} {}".format(d1, d2))
         fab.sudo(
             "rm -rf /data/web_static/releases/{}/web_static".format(
                 file_name_dir))

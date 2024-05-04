@@ -30,5 +30,5 @@ def do_clean(number=0):
     files = sudo(f"ls -t {remote_dir}").stdout.strip().split("\n")
 
     for file in files[arch_count:]:
-        sudo(f"rm {remote_dir}/{file}")
+        sudo(f"rm -R {remote_dir}/{file.split('.')[0]}")
         local(f"rm {local_dir}/{file}")

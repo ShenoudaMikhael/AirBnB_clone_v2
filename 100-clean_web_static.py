@@ -30,5 +30,12 @@ def do_clean(number=0):
     files = sudo(f"ls -t {remote_dir}").stdout.strip().split(" ")
     print(files)
     for file in files[arch_count:]:
-        sudo(f"rm -R {remote_dir}/{file}")
-        local(f"rm {local_dir}/{file}.tgz")
+
+        try:
+            sudo(f"rm -R {remote_dir}/{file}")
+        except Exception:
+            pass
+        try:
+            local(f"rm {local_dir}/{file}.tgz")
+        except Exception:
+            pass

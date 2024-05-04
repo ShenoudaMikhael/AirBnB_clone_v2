@@ -28,7 +28,7 @@ def do_clean(number=0):
     files_to_remove = files[arch_count:]
     for file in remote_files:
 
-        sudo("/data/web_static/releases/")
+        sudo("rm {}".format(file))
 
     for file in files_to_remove:
         os.remove(file)

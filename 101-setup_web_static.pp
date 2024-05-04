@@ -40,7 +40,7 @@ exec { 'command':
     }	
   }" | sudo tee /etc/nginx/sites-available/default;
   sudo ln -sf "/etc/nginx/sites-available/default" "/etc/nginx/sites-enabled/default";
-  service nginx restart',
+  service nginx restart;',
   provider => shell,
 }
 

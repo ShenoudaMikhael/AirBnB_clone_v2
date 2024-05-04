@@ -9,9 +9,7 @@ def do_clean(number=0):
     """do clean function"""
 
     num = int(number)
-
     num = 2 if num == 0 else num + 1
-    
     local('cd versions ; ls -t | tail -n +{} | xargs rm -rf'.format(num))
     path = '/data/web_static/releases'
     sudo('cd {} ; ls -t | tail -n +{} | xargs rm -rf'.format(path, num))

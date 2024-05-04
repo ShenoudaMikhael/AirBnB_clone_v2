@@ -31,4 +31,4 @@ def do_clean(number=0):
     print(files)
     for file in files[arch_count:]:
         sudo(f"rm -R {remote_dir}/{file.split('.')[0]}")
-        local(f"rm {local_dir}/{file}")
+        local(f"rm {local_dir}/{file}.tgz")

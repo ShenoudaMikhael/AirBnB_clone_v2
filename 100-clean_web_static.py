@@ -19,8 +19,7 @@ def do_clean(number=0):
         if os.path.isfile(os.path.join("versions", f))
     ]
 
-    files.sort(key=os.path.getmtime, reverse=True)
-    files_to_remove = files[arch_count:]
+    files_to_remove = files[: arch_count * -2]
 
     for file in files_to_remove:
         local("rm {}".format(os.path.join("versions", file)))

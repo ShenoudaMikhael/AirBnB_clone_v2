@@ -11,19 +11,19 @@ def do_clean(number=0):
 
     arch_count = int(number)
 
-    if arch_count == 0 or arch_count == 1:
-        arch_count = 1
+    # if arch_count == 0 or arch_count == 1:
+    #     arch_count = 1
 
-    files = [
-        f for f in os.listdir("versions")
-        if os.path.isfile(os.path.join("versions", f))
-    ]
+    # files = [
+    #     f for f in os.listdir("versions")
+    #     if os.path.isfile(os.path.join("versions", f))
+    # ]
 
-    files_to_remove = files[: arch_count * -2]
+    # files_to_remove = files[: arch_count * -2]
 
-    for file in files_to_remove:
-        local("rm {}".format(os.path.join("versions", file)))
-        os.remove()
+    # for file in files_to_remove:
+    #     local("rm {}".format(os.path.join("versions", file)))
+    #     os.remove()
 
     remote_dir = "/data/web_static/releases"
     local_dir = "versions"

@@ -57,6 +57,7 @@ def do_deploy(archive_path):
         lc = "/data/web_static/current"
         sudo("rm -rf {}".format(lc))
         sudo("ln -s {} {}".format(l1, lc))
+        print("New version deployed!")
         return True
     except Exception:
         return False

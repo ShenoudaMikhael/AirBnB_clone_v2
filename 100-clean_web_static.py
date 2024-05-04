@@ -27,7 +27,7 @@ def do_clean(number=0):
 
     remote_dir = "/data/web_static/releases"
     local_dir = "versions"
-    files = sudo(f"ls -t {remote_dir}").stdout.strip().split("\n")
+    files = sudo(f"ls -t {remote_dir}").stdout.strip().split(" ")
     print(files)
     for file in files[arch_count:]:
         sudo(f"rm -R {remote_dir}/{file.split('.')[0]}")

@@ -27,13 +27,8 @@ def do_clean(number=0):
     files.sort(key=os.path.getmtime, reverse=True)
     files_to_remove = files[arch_count:]
     for file in remote_files:
-        try:
-            sudo("/data/web_static/releases/")
-        except Exception:
-            pass
+
+        sudo("/data/web_static/releases/")
 
     for file in files_to_remove:
-        try:
-            os.remove(file)
-        except Exception:
-            pass
+        os.remove(file)

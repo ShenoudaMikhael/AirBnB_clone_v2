@@ -23,6 +23,11 @@ def do_clean(number=0):
     files_to_remove = files[arch_count:]
 
     for file in files_to_remove:
-        sudo("rm {}".format(os.path.join("/data/web_static/releases", file)))
         local("rm {}".format(os.path.join("versions", file)))
         os.remove()
+
+    remote_dir = "/data/web_static/releases"
+    files = sudo(f"ls -t {remote_dir}", hide=True).stdout.strip().split("\n")
+
+    for file in files[2:]:
+        sudo(f"rm {remote_dir}/{file}")

@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 """do clean module """
 import os
-from fabric.api import env, sudo
+from fabric.api import env, sudo, local
 
 env.hosts = ["34.201.165.130", "34.224.62.173"]
 
@@ -24,5 +24,5 @@ def do_clean(number=0):
 
     for file in files_to_remove:
         sudo("rm {}".format(os.path.join("/data/web_static/releases", file)))
-
-        os.remove(os.path.join("versions", file))
+        local("rm {}".format(os.path.join("versions", file)))
+        os.remove()

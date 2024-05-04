@@ -30,7 +30,7 @@ def do_clean(number=0):
     files = sudo(f"ls -t {remote_dir}").stdout.strip().split(" ")
     print(files)
     for file in files[arch_count:]:
-
+        print(file)
         try:
             sudo(f"rm -R {remote_dir}/{file}")
         except Exception:

@@ -38,7 +38,7 @@ exec { 'command':
     location /hbnb_static/ {
       alias /data/web_static/current/;
     }	
-  }" | sudo tee /etc/nginx/sites-available/default
+  }" | sudo tee /etc/nginx/sites-available/default;
   sudo ln -sf "/etc/nginx/sites-available/default" "/etc/nginx/sites-enabled/default";
   service nginx restart',
   provider => shell,

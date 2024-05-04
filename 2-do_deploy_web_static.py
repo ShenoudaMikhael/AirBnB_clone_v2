@@ -3,6 +3,7 @@
 import os
 from datetime import datetime
 import fabric.api as fab
+import shlex
 
 fab.env.hosts = ["34.201.165.130", "34.224.62.173"]
 
@@ -30,29 +31,26 @@ def do_deploy(archive_path):
     if not os.path.exists(archive_path):
         return False
     try:
+        name = archive_path.replace('/', ' ')
+        name = shlex.split(name)
+        name = name[-1]
 
-        file_name = archive_path.split("/")[-1]
-        file_name_dir = file_name.split(".")[0]
-        tmp_dir = "/tmp/{}".format(file_name)
-        extract_dir = "/data/web_static/releases/{}/".format(file_name_dir)
+        wname = name.replace('.', ' ')
+        wname = shlex.split(wname)
+        wname = wname[0]
 
-        fab.put(archive_path, tmp_dir, use_sudo=True)
+        releases_path = "/data/web_static/releases/{}/".format(wname)
+        tmp_path = "/tmp/{}".format(name)
 
-        fab.sudo("mkdir -p {}".format(extract_dir))
-
-        fab.sudo("tar -xzf {} -C {}".format(tmp_dir, extract_dir))
-
-        fab.sudo("rm {}".format(tmp_dir))
-        d1 = "/data/web_static/releases/{}/web_static/*".format(file_name_dir)
-        d2 = "/data/web_static/releases/{}/".format(file_name_dir)
-        fab.sudo("mv {} {}".format(d1, d2))
-        fab.sudo(
-            "rm -rf /data/web_static/releases/{}/web_static".format(
-                file_name_dir))
-        l1 = "/data/web_static/releases/{}/".format(file_name_dir)
-        lc = "/data/web_static/current"
-        fab.sudo("rm -rf {}".format(lc))
-        fab.sudo("ln -s {} {}".format(l1, lc))
+        fab.put(archive_path, "/tmp/")
+        fab.sudo("mkdir -p {}".format(releases_path))
+        fab.sudo("tar -xzf {} -C {}".format(tmp_path, releases_path))
+        fab.sudo("rm {}".format(tmp_path))
+        fab.sudo("mv {}web_static/* {}".format(releases_path, releases_path))
+        fab.sudo("rm -rf {}web_static".format(releases_path))
+        fab.sudo("rm -rf /data/web_static/current")
+        fab.sudo("ln -s {} /data/web_static/current".format(releases_path))
+        print("New version deployed!")
         return True
     except Exception:
         return False

@@ -13,6 +13,8 @@ def do_pack():
 
     archive_name = f"web_static_{now}.tgz"
     versions_dir = "versions"
+    if os.path.isfile(os.path.join(versions_dir, archive_name)):
+        return os.path.join(versions_dir, archive_name)
     if not os.path.exists(versions_dir):
         local(f"mkdir {versions_dir}")
     try:

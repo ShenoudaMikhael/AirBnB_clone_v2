@@ -26,7 +26,7 @@ def do_clean(number=0):
         os.remove()
 
     remote_dir = "/data/web_static/releases"
-    files = sudo(f"ls -t {remote_dir}", hide=True).stdout.strip().split("\n")
+    files = sudo(f"ls -t {remote_dir}").stdout.strip().split("\n")
 
     for file in files[arch_count:]:
         sudo(f"rm {remote_dir}/{file}")

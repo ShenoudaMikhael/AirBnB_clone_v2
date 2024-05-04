@@ -31,19 +31,21 @@ def do_deploy(archive_path):
         return False
     try:
 
-        file_name = archive_path.split("/")[1]
+        file_name = archive_path.split("/")[-1]
         file_name_dir = file_name.split(".")[0]
         tmp_dir = "/tmp/{}".format(file_name)
         extract_dir = "/data/web_static/releases/{}/".format(file_name_dir)
-        # put: versions/web_static_20170315003959.tgz ->
-        # /tmp/web_static_20170315003959.tgz
+
         fab.put(archive_path, tmp_dir, use_sudo=True)
-        # run: mkdir -p /data/web_static/releases/web_static_20170315003959/
+
         fab.sudo("mkdir -p {}".format(extract_dir))
-        # run: tar -xzf /tmp/web_static_20170315003959.tgz -C
-        #  /data/web_static/releases/web_static_20170315003959/
+
         fab.sudo("tar -xzf {} -C {}".format(tmp_dir, extract_dir))
+
         fab.sudo("rm {}".format(tmp_dir))
+        fab.sudo(
+            "find /data/web_static/releases/{}/* -maxdepth 0" +
+            " ! -name 'web_static' -exec rm -rf {} +")
         d1 = "/data/web_static/releases/{}/web_static/*".format(file_name_dir)
         d2 = "/data/web_static/releases/{}/".format(file_name_dir)
         fab.sudo("mv {} {}".format(d1, d2))

@@ -43,9 +43,6 @@ def do_deploy(archive_path):
         fab.sudo("tar -xzf {} -C {}".format(tmp_dir, extract_dir))
 
         fab.sudo("rm {}".format(tmp_dir))
-        fab.sudo(
-            "find /data/web_static/releases/{}/* -maxdepth 0" +
-            " ! -name 'web_static' -exec rm -rf {} +")
         d1 = "/data/web_static/releases/{}/web_static/*".format(file_name_dir)
         d2 = "/data/web_static/releases/{}/".format(file_name_dir)
         fab.sudo("mv {} {}".format(d1, d2))

@@ -6,9 +6,10 @@
     <BODY>
         <H1>States</H1>
         <UL>
-            {% for v in cit | sort(attribute="name")%}
+            {% for k,v in cit %}
             <LI>{{v.id}}: <B>{{v.name}}</B></LI>
             {% endfor %}
+           
         </UL>
     </BODY>
 </HTML>

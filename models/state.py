@@ -9,7 +9,6 @@ class State(BaseModel, Base):
     """State class"""
 
     __tablename__ = "states"
-    name = Column(String(128), nullable=False)
 
     # def __init__(self, *args, name="", **kwargs):
     #     """Init function"""
@@ -19,7 +18,7 @@ class State(BaseModel, Base):
 
     if getenv("HBNB_TYPE_STORAGE") == "db":
         cities = relationship("City", backref="state", cascade="all, delete")
-
+        name = Column(String(128), nullable=False)
     else:
 
         @property

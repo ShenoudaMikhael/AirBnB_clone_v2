@@ -2,7 +2,6 @@
 """Flask App Module"""
 from flask import Flask, render_template
 from models import storage
-from models.base_model import BaseModel, Base
 from models.user import User
 from models.place import Place
 from models.state import State
@@ -36,4 +35,4 @@ def states_list():
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(port=5000, host="0.0.0.0")

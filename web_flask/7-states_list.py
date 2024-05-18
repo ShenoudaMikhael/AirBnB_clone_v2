@@ -59,8 +59,8 @@ def hello_odd_even(n):
 @app.route("/states_list", strict_slashes=False)
 def states_list():
     """number route"""
-    a = storage.all("State").items()
-    return render_template("7-states_list.html", cit=a)
+    states = sorted(list(storage.all("State").values()), key=lambda x: x.name)
+    return render_template("7-states_list.html", states=states)
 
 
 if __name__ == "__main__":

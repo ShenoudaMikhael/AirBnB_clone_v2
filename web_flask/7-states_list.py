@@ -59,7 +59,7 @@ def hello_odd_even(n):
 @app.route("/states_list", strict_slashes=False)
 def states_list():
     """number route"""
-    a = storage.all("State").items()
+    a = storage.all("State").values()
     return render_template("7-states_list.html", cit=a)
 
 

@@ -23,7 +23,8 @@ ex_models = {
 @app.route("/states_list", strict_slashes=False)
 def states_list():
     """states list route"""
-    states = list(storage.all(ex_models["State"]).values())
+    states = storage.all(ex_models["State"]).values()
+
     return render_template("7-states_list.html", states=states)
 
 
@@ -34,4 +35,4 @@ def teardown_db(exception):
 
 
 if __name__ == "__main__":
-    app.run(port=5000, host="0.0.0.0")
+    app.run(debug=True, port=5000, host="0.0.0.0")

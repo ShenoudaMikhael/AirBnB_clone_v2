@@ -6,6 +6,12 @@ from models import storage
 app = Flask(__name__)
 
 
+@app.teardown_appcontext
+def teardown_db(exception):
+    """Closes the storage on teardown"""
+    storage.close()
+
+
 @app.route("/", strict_slashes=False)
 def hello_world():
     """Hello HBNB! Route"""
@@ -53,8 +59,8 @@ def hello_odd_even(n):
 @app.route("/cities_by_states", strict_slashes=False)
 def cities_by_states():
     """number route"""
-    a = storage.all("State")
-    return render_template("7-states_list.html", cit=a.items())
+    a = storage.all("State").items()
+    return render_template("7-states_list.html", cit=a)
 
 
 if __name__ == "__main__":

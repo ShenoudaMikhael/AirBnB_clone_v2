@@ -23,12 +23,9 @@ ex_models = {
 @app.route("/states_list", strict_slashes=False)
 def states_list():
     """states list route"""
-    states = storage.all(ex_models["State"])
-    if len(states > 0):
-        states = states.values()
-        return render_template("7-states_list.html", states=states)
+    states = storage.all(ex_models["State"]).values()
 
-    return render_template("7-states_list.html", states=[])
+    return render_template("7-states_list.html", states=states)
 
 
 @app.teardown_appcontext

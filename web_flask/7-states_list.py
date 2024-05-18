@@ -20,18 +20,17 @@ ex_models = {
 }
 
 
-@app.teardown_appcontext
-def teardown_db(exception):
-    """Closes the storage on teardown"""
-    storage.close()
-
-
 @app.route("/states_list", strict_slashes=False)
 def states_list():
     """states list route"""
     states = list(storage.all(ex_models["City"]).values())
-    states = sorted(states, key=lambda x: x.name)
     return render_template("7-states_list.html", states=states)
+
+
+@app.teardown_appcontext
+def teardown_db(exception):
+    """Closes the storage on teardown"""
+    storage.close()
 
 
 if __name__ == "__main__":
